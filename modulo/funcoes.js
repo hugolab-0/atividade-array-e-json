@@ -89,16 +89,15 @@ function getEstadosRegiao (regiao){
 }
 
 function getCapitalPais (){
+    let capitais = []
     let capital
+    let result
 
     listaEstadosCidades.estados.forEach(function(capitaisBrasil){
-        
-        capital = capitaisBrasil
+       
     })
 
-    return {
-        uf: capital
-    }
+    return 
 }
 
 function getCidades (sigla){
@@ -115,7 +114,7 @@ function getCidades (sigla){
         uf: (result.sigla),
         descricao: (result.nome),
         quantidade_cidades: (result.cidades).length,
-        cidades: result.cidades.map(cid => cid.nome)
+        cidades: result.cidades.map(cidades => cidades.nome)
     }
 }
-console.log (getCidades("RJ"))
+console.log (getCapitalPais())
