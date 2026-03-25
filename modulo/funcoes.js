@@ -90,14 +90,24 @@ function getEstadosRegiao (regiao){
 
 function getCapitalPais (){
     let capitais = []
-    let capital
-    let result
 
     listaEstadosCidades.estados.forEach(function(capitaisBrasil){
-       
+
+    if(capitaisBrasil.capital_pais?.ano_inicio){
+        capitais.push({
+            capital_atual: capitaisBrasil.capital_pais.capital == false,
+            uf:            capitaisBrasil.sigla,
+            descricao:     capitaisBrasil.nome,
+            capital:       capitaisBrasil.capital,
+            regiao:        capitaisBrasil.regiao,
+            
+            capital_ano_inicio: capitaisBrasil.capital_pais.ano_inicio,
+            capital_ano_fim:    capitaisBrasil.capital_pais.ano_fim
+        })
+    }
     })
 
-    return 
+    return capitais
 }
 
 function getCidades (sigla){
