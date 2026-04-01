@@ -1,3 +1,11 @@
+/**********************
+*
+*
+*
+***********************/
+
+
+
 // importando os estdos e cidades do outro arquivo .js
 const listaEstadosCidades = require('./estados_cidades.js')
 
@@ -95,7 +103,7 @@ function getCapitalPais (){
 
     if(capitaisBrasil.capital_pais?.ano_inicio){
         capitais.push({
-            capital_atual: capitaisBrasil.capital_pais.capital == false,
+            capital_atual: capitaisBrasil.capital_pais.capital == true,
             uf:            capitaisBrasil.sigla,
             descricao:     capitaisBrasil.nome,
             capital:       capitaisBrasil.capital,
