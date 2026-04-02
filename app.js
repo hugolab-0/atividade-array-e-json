@@ -36,6 +36,15 @@ const corsOptions = {
 // ele serve para configurações da API usando o CORS
 app.use(cors(corsOptions))
 
+// pagina inicial da api
+app.get('/', function(req, res){
+    let doc = {
+        "primeiro": "use /v1/senai/help para iniciar"
+    }
+    res.send('API funcionando 🚀')
+
+})
+
 // res(response) -> são retorno sda API 
 // req(request)  -> são chegadas de dados na API
 
@@ -118,7 +127,6 @@ app.get('/v1/senai/estados', function(req, res){
 
     res.status(200)
     res.json({estados})
-
    
 })
 
