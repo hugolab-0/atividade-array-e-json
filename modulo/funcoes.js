@@ -36,7 +36,7 @@ function getDadosEstado (uf){
     // fazendo a repetição e entregando um dado para cada pedido
     listaEstadosCidades.estados.forEach(function(informacao){
 
-        if (informacao.sigla === uf){
+        if (informacao.sigla === String(uf).toUpperCase()){
         
         siglaSolicitada = {
         // pede a sigla
@@ -51,9 +51,13 @@ function getDadosEstado (uf){
     }
     }
     })
-
-    // retorna as informações solicitadoas sobre os estados
-    return siglaSolicitada
+    if (siglaSolicitada){
+         // retorna as informações solicitadoas sobre os estados
+         return siglaSolicitada
+    }
+    else{
+        return false
+    }   
 }
 
 function getCapitalEstado (uf){
@@ -61,39 +65,43 @@ function getCapitalEstado (uf){
 
     listaEstadosCidades.estados.forEach(function(info){
         // valida se a sigla digitada bate com alguma da informações que o "info" conseguiu do estado
-        if(info.sigla === uf){
+        if(info.sigla === String(uf).toUpperCase()){
             siglaSolicitada = {
                 uf: (info.sigla), descricao: (info.nome), capital: (info.capital)
             }
         }
     })
 
-    return siglaSolicitada
+    if (siglaSolicitada){
+        return siglaSolicitada
+    }
+    else{
+        return false
+    }   
 }
 
 function getEstadosRegiao (regiao){
     let estados = []
-    let cidadesDoEstado
 
     listaEstadosCidades.estados.forEach(function(estadosRegiao){
 
-        // verifica se a informação solicitada é emcontrada na regiao
-        if(estadosRegiao.regiao === regiao){
+        if (estadosRegiao.regiao.toUpperCase() === String(regiao).toUpperCase()){
 
-            // cidadesDoEstado vai colocar as informações em ordem
-            cidadesDoEstado = {
-                uf: (estadosRegiao.nome), descricao: (estadosRegiao.nome)
-            }
-
-            // estado vai pegar a cidadesDoEstado e deixa no array dele
-            estados.push(cidadesDoEstado)
+            estados.push({
+                uf: estadosRegiao.sigla,
+                descricao: estadosRegiao.nome
+            })
         }
     })
 
+    if (estados.length === 0){
+        return false
+    }
+
     return {
         regiao: regiao,
-        estado: estados
-}
+        estados: estados
+    }
 }
 
 function getCapitalPais (){
@@ -115,7 +123,12 @@ function getCapitalPais (){
     }
     })
 
-    return capitais
+    if(capitais.length == 0){
+        return false
+    }
+    else{
+        return capitais
+    }
 }
 
 function getCidades (sigla){
@@ -123,16 +136,30 @@ function getCidades (sigla){
 
     listaEstadosCidades.estados.forEach(function(estadosCidades){
 
-        if(estadosCidades.sigla === sigla){
+        if(estadosCidades.sigla === String(sigla).toUpperCase()){
             result = estadosCidades
         }
     })
-
-    return {
-        uf: (result.sigla),
-        descricao: (result.nome),
-        quantidade_cidades: (result.cidades).length,
-        cidades: result.cidades.map(cidades => cidades.nome)
+    if(result){
+       return {
+            uf: (result.sigla),
+            descricao: (result.nome),
+            quantidade_cidades: (result.cidades).length,
+            cidades: result.cidades.map(cidades => cidades.nome)
+        }
     }
+    else{
+        return false
+    }
+    
 }
-console.log (getCapitalPais())
+
+
+module.exports ={
+    getListaDeEstados,
+    getCapitalEstado,
+    getCapitalPais,
+    getCidades,
+    getDadosEstado,
+    getEstadosRegiao
+}
